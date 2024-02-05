@@ -41,8 +41,7 @@ O sistema será desenvolvido utilizando as seguintes tecnologias:
 O candidato ideal para esta posição deve possuir:
 
 - Experiência sólida com desenvolvimento frontend utilizando React e TypeScript.
-- Conhecimento prático de Formik, Yup e React Data Table Components.
-- Capacidade de trabalhar de forma colaborativa em equipe e de forma autônoma quando necessário.
+- Conhecimento prático de Formik, Yup.
 - Habilidade para resolver problemas e propor soluções eficazes.
 - Comprometimento com a qualidade do código, boas práticas de desenvolvimento e cumprimento de prazos.
 
@@ -50,7 +49,7 @@ O candidato ideal para esta posição deve possuir:
 
 Para participar do processo seletivo, siga os passos abaixo:
 
-1. Faça um fork do repositório do projeto no GitHub: [link para o repositório](https://github.com/seuusuario/nome-do-repositorio).
+1. Faça um fork do repositório do projeto no GitHub: [link para o repositório](https://github.com/adasisoftware/processo-seletivo-react-estagio).
 2. Desenvolva o sistema seguindo as especificações fornecidas.
 3. Ao concluir, envie um pull request com suas alterações para o repositório original.
 4. Certifique-se de incluir informações relevantes sobre seu projeto no pull request, como instruções de instalação, uso e quaisquer outras considerações importantes.
@@ -61,4 +60,4 @@ Agradecemos pelo seu interesse em fazer parte de nossa equipe!
 
 Atenciosamente,
 
-[Empresa XYZ]
+Adasi Software
