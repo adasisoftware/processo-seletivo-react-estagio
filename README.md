@@ -1,9 +1,5 @@
 # Processo Seletivo - Desenvolvedor(a) Frontend (React + TypeScript)
 
-Olá!
-
-Estamos à procura de um(a) Desenvolvedor(a) Frontend talentoso(a) para se juntar à nossa equipe e contribuir para o desenvolvimento de um sistema de cadastro de pacientes e agendamento de consultas médicas. Se você é apaixonado(a) por desenvolvimento web e tem experiência com React e TypeScript, esta pode ser a oportunidade perfeita para você!
-
 ## Descrição do Projeto
 
 O projeto consiste em criar um sistema que permitirá o cadastro de pacientes e o agendamento de consultas médicas. Abaixo estão as principais especificações do sistema:
