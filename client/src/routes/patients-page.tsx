@@ -26,7 +26,7 @@ export default function PatientsPage() {
       setPatientsData(patientsData);
       setIsLoading(false);
     }
-  }, [patientsData]);
+  }, []);
   return (
     <div className="h-100 d-flex flex-column">
       <header className="p-1 bg-secondary border-bottom border-4 border-black text-center">
