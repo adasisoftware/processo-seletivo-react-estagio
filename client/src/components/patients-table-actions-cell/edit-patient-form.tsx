@@ -1,12 +1,14 @@
 import { Form, Field, Formik, FormikHelpers } from 'formik';
-import { Button } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import GenericInputGroup from '../generic-input-group';
 import { patientFormValidationSchema } from '../../utils/validation-schemas/patient-form';
-import { PatientData } from '../../types/patient-data';
 import { PatientFormValues } from '../../types/patient-form-values';
+import { BASE_URL } from '../../api';
+import { add, format } from 'date-fns';
+import { PatientDataRow } from '../../constants/patient-table-columns';
 
 type EditPatientFormProps = {
-  selectedPatient: PatientData;
+  selectedPatient: PatientDataRow;
 };
 
 export default function EditPatientForm({
@@ -15,15 +17,27 @@ export default function EditPatientForm({
   const initialValues: PatientFormValues = {
     cpf: selectedPatient.cpf,
     fullName: selectedPatient.fullName,
-    birthday: selectedPatient.birthday,
+    birthday: format(add(selectedPatient.birthday, { hours: 4 }), 'yyyy-MM-dd'),
     sex: selectedPatient.sex,
   };
 
-  function handleFormSubmit(
+  async function handleFormSubmit(
     values: PatientFormValues,
     { setSubmitting }: FormikHelpers<PatientFormValues>,
   ) {
-    console.log(values);
+    setSubmitting(true);
+
+    await fetch(`${BASE_URL}/patients/${selectedPatient.id}`, {
+      method: 'PUT',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({
+        cpf: values.cpf,
+        fullName: values.fullName,
+        birthday: new Date(values.birthday),
+        sex: values.sex,
+      }),
+    });
+
     setSubmitting(false);
   }
 
@@ -35,64 +49,69 @@ export default function EditPatientForm({
     >
       {({ isSubmitting }) => (
         <Form>
-          <GenericInputGroup
-            name="cpf"
-            id="cpf"
-            labelText="CPF (apenas números)"
-            required
-            placeholder="XXX.XXX.XXX-XX"
-          />
+          <Container className="d-flex flex-column gap-4">
+            <Container>
+              <GenericInputGroup
+                name="cpf"
+                id="cpf"
+                labelText="CPF (apenas números)"
+                required
+                placeholder="XXX.XXX.XXX-XX"
+              />
+            </Container>
+            <Container>
+              <GenericInputGroup
+                name="fullName"
+                id="fullName"
+                labelText="Nome completo"
+                required
+              />
+            </Container>
 
-          <GenericInputGroup
-            name="fullName"
-            id="fullName"
-            labelText="Nome completo"
-            required
-          />
+            <Container></Container>
+            <GenericInputGroup
+              name="birthday"
+              id="birthday"
+              type="date"
+              labelText="Data de nascimento"
+              required
+            />
 
-          <GenericInputGroup
-            name="birthday"
-            id="birthday"
-            type="date"
-            labelText="Data de nascimento"
-            required
-          />
-
-          <div>
-            <label htmlFor="sex" className="form-label">
-              Sexo<span className="text-danger fs-5"> *</span>
-            </label>
-            <div className="form-check">
-              <label className="form-check-label">
-                <Field
-                  name="sex"
-                  id="sexM"
-                  type="radio"
-                  value="M"
-                  className="form-check-input"
-                />
-                Masculino
+            <Container>
+              <label htmlFor="sex" className="form-label">
+                Sexo<span className="text-danger fs-5"> *</span>
               </label>
-            </div>
-            <div className="form-check">
-              <label className="form-check-label">
-                <Field
-                  name="sex"
-                  id="sexF"
-                  type="radio"
-                  value="F"
-                  className="form-check-input"
-                />
-                Feminino
-              </label>
-            </div>
-          </div>
-
-          <div>
-            <Button type="submit" disabled={isSubmitting}>
-              Salvar
-            </Button>
-          </div>
+              <div className="form-check">
+                <label className="form-check-label">
+                  <Field
+                    name="sex"
+                    id="sexM"
+                    type="radio"
+                    value="MALE"
+                    className="form-check-input"
+                  />
+                  Masculino
+                </label>
+              </div>
+              <div className="form-check">
+                <label className="form-check-label">
+                  <Field
+                    name="sex"
+                    id="sexF"
+                    type="radio"
+                    value="FEMALE"
+                    className="form-check-input"
+                  />
+                  Feminino
+                </label>
+              </div>
+            </Container>
+            <Container>
+              <Button type="submit" disabled={isSubmitting}>
+                Salvar
+              </Button>
+            </Container>
+          </Container>
         </Form>
       )}
     </Formik>

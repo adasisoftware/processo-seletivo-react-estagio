@@ -4,29 +4,46 @@ import GenericInputGroup from '../generic-input-group';
 import { AppointmentFormValues } from '../../types/appointment-form-values';
 import { appointmentFormValidationSchema } from '../../utils/validation-schemas/appointment-form';
 import EditBookingTimeInput from './edit-booking-time-input';
-import { AppointmentData } from '../../types/appointment-data';
+import { AppointmentDataRow } from '../../constants/appointment-table-columns';
+import { add, format } from 'date-fns';
+import { BASE_URL } from '../../api';
 
 type EditAppointmentFormProps = {
-  selectedAppointment: AppointmentData;
+  selectedAppointment: AppointmentDataRow;
 };
 
 export default function EditAppointmentForm({
   selectedAppointment,
 }: EditAppointmentFormProps) {
   const initialValues: AppointmentFormValues = {
-    patientCpf: selectedAppointment.patientCPF,
-    patientFullName: selectedAppointment.patientFullName,
+    patientCpf: selectedAppointment.patient.cpf,
     type: selectedAppointment.type,
-    bookingDate: selectedAppointment.bookingDate,
+    bookingDate: format(
+      add(selectedAppointment.bookingDate, { hours: 4 }),
+      'yyyy-MM-dd',
+    ),
     bookingTime: selectedAppointment.bookingTime,
   };
 
-  function handleFormSubmit(
+  async function handleFormSubmit(
     values: AppointmentFormValues,
     { setSubmitting }: FormikHelpers<AppointmentFormValues>,
   ) {
-    console.log(values);
+    setSubmitting(true);
+
+    await fetch(`${BASE_URL}/appointments/${selectedAppointment.id}`, {
+      method: 'PUT',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({
+        type: values.type,
+        bookingDate: new Date(values.bookingDate),
+        bookingTime: values.bookingTime,
+      }),
+    });
+
     setSubmitting(false);
+
+    window.location.reload();
   }
 
   return (
@@ -45,16 +62,7 @@ export default function EditAppointmentForm({
                 labelText="CPF do paciente (apenas números)"
                 required
                 placeholder="XXX.XXX.XXX-XX"
-              />
-            </Container>
-
-            <Container>
-              <GenericInputGroup
-                name="patientFullName"
-                id="patientFullName"
-                labelText="Nome completo do paciente"
-                required
-                value={selectedAppointment.patientFullName}
+                disabled
               />
             </Container>
 

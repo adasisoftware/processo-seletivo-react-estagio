@@ -3,6 +3,7 @@ import { Button, Container } from 'react-bootstrap';
 import GenericInputGroup from '../generic-input-group';
 import { patientFormValidationSchema } from '../../utils/validation-schemas/patient-form';
 import { PatientFormValues } from '../../types/patient-form-values';
+import { BASE_URL } from '../../api';
 
 export default function NewPatientForm() {
   const initialValues: PatientFormValues = {
@@ -12,11 +13,23 @@ export default function NewPatientForm() {
     sex: '',
   };
 
-  function handleFormSubmit(
+  async function handleFormSubmit(
     values: PatientFormValues,
     { setSubmitting }: FormikHelpers<PatientFormValues>,
   ) {
-    console.log(values);
+    setSubmitting(true);
+
+    await fetch(`${BASE_URL}/patients`, {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({
+        cpf: values.cpf,
+        fullName: values.fullName,
+        birthday: new Date(values.birthday),
+        sex: values.sex,
+      }),
+    });
+
     setSubmitting(false);
   }
 
@@ -35,7 +48,7 @@ export default function NewPatientForm() {
                 id="cpf"
                 labelText="CPF (apenas números)"
                 required
-                placeholder="XXX.XXX.XXX-XX"
+                maxLength={11}
               />
             </Container>
 
@@ -69,7 +82,7 @@ export default function NewPatientForm() {
                       name="sex"
                       id="sexM"
                       type="radio"
-                      value="M"
+                      value="MALE"
                       className="form-check-input"
                     />
                     Masculino
@@ -81,7 +94,7 @@ export default function NewPatientForm() {
                       name="sex"
                       id="sexF"
                       type="radio"
-                      value="F"
+                      value="FEMALE"
                       className="form-check-input"
                     />
                     Feminino
