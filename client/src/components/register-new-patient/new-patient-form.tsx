@@ -31,6 +31,8 @@ export default function NewPatientForm() {
     });
 
     setSubmitting(false);
+
+    window.location.reload();
   }
 
   return (

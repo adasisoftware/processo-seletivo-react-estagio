@@ -39,6 +39,8 @@ export default function EditPatientForm({
     });
 
     setSubmitting(false);
+
+    window.location.reload();
   }
 
   return (

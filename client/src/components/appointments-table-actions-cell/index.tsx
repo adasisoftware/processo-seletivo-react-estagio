@@ -22,6 +22,8 @@ export default function AppointmentsTableActionsCell({
       method: 'DELETE',
       headers: { 'Content-type': 'application/json' },
     });
+
+    window.location.reload();
   }
 
   function handleOpenModal() {

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { PatientData } from '../../types/patient-data';
 import EditPatientForm from './edit-patient-form';
 import { BASE_URL } from '../../api';
+import { PatientDataRow } from '../../constants/patient-table-columns';
 
 type PatientsTableActionsCellProps = {
-  rowData: PatientData;
+  rowData: PatientDataRow;
 };
 
 export default function PatientsTableActionsCell({
@@ -22,6 +22,8 @@ export default function PatientsTableActionsCell({
       method: 'DELETE',
       headers: { 'Content-type': 'application/json' },
     });
+
+    window.location.reload();
   }
 
   function handleOpenModal() {
