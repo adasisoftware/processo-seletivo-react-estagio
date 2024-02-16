@@ -30,7 +30,7 @@ model Appointment {
   bookingTime       String            @map("booking_time")
   createdAt         DateTime?         @default(now()) @map("created_at")
   updatedAt         DateTime?         @default(now()) @map("updated_at")
-  patientId         String            @db.ObjectId
+  patientId         String            @db.ObjectId @map("patient_id")
   patient           Patient           @relation(fields: [patientId], references: [id])
 
   @@map("appointments")
