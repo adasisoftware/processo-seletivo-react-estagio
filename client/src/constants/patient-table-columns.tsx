@@ -1,8 +1,9 @@
 import { TableColumn } from 'react-data-table-component';
 import PatientsTableActionsCell from '../components/patients-table-actions-cell';
 import { PatientData } from '../types/patient-data';
+import { add, format } from 'date-fns';
 
-type PatientDataRow = PatientData;
+export type PatientDataRow = PatientData;
 
 export const PATIENTS_TABLE_COLUMNS: TableColumn<PatientDataRow>[] = [
   {
@@ -16,11 +17,14 @@ export const PATIENTS_TABLE_COLUMNS: TableColumn<PatientDataRow>[] = [
   },
   {
     name: 'Data de Nascimento',
-    selector: (row) => row.birthday.toString(),
+    selector: (row) => format(add(row.birthday, { hours: 4 }), 'dd-MM-yyyy'),
   },
   {
     name: 'Sexo',
-    selector: (row) => row.sex,
+    cell: (row) => {
+      if (row.sex === 'MALE') return 'Masculino';
+      if (row.sex === 'FEMALE') return 'Feminino';
+    },
   },
   {
     name: 'Ações',
