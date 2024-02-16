@@ -1,6 +1,6 @@
 import { Container } from 'react-bootstrap';
 import BookNewAppointment from '../components/book-new-appointment';
-import { APPOINTMENTS_TABLE_COLUMNS } from '../constants/appointment-table-columns';
+import AppointmentsPerMonthContainer from '../components/appointments-per-month-container';
 
 export default function AppointmentsPage() {
   return (
@@ -14,13 +14,7 @@ export default function AppointmentsPage() {
             <BookNewAppointment />
           </Container>
           <Container>
-            <DataTableBase
-              columns={APPOINTMENTS_TABLE_COLUMNS}
-              data={}
-              highlightOnHover
-              striped
-              fixedHeader
-            />
+            <AppointmentsPerMonthContainer />
           </Container>
         </Container>
       </main>
