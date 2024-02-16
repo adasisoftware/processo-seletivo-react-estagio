@@ -1,5 +1,33 @@
 # Sistema de cadastro de pacientes e agendamento de consultas
 
+## Instruções para rodar o projeto localmente:
+
+1. Instale o NodeJS em sua máquina;
+2. Faça o clone do repositório;
+3. Digite o comando `cd ./processo-seletivo-react-estagio` no terminal;
+4. Abra dois terminais nesta pasta, um para entrar na pasta 'server' e outro na 'client';
+5. Em um, digite `cd ./server` e em outro, `cd ./client`;
+6. Na raiz da pasta 'server', adicione o arquivo '.env' necessário;
+7. No terminal do servidor, digite os seguintes comandos:
+
+```bash
+npm install
+
+npm start
+```
+
+8. No terminal do cliente, digite os seguintes comandos:
+
+```bash
+npm install
+
+npm run build
+
+npm run preview
+```
+
+9. Entre na url http://localhost:4173/
+
 ## Descrição do Projeto
 
 O projeto consiste em um sistema que permitirá o cadastro de pacientes e o agendamento de consultas médicas. Abaixo estão as principais especificações do sistema:
