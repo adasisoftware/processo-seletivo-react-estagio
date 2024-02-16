@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { PatientData } from '../../types/patient-data';
 import EditPatientForm from './edit-patient-form';
+import { BASE_URL } from '../../api';
 
 type PatientsTableActionsCellProps = {
   rowData: PatientData;
@@ -16,7 +17,12 @@ export default function PatientsTableActionsCell({
     handleOpenModal();
   }
 
-  function handleDeleteBtnClick() {}
+  async function handleDeleteBtnClick() {
+    await fetch(`${BASE_URL}/patients/${rowData.id}`, {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json' },
+    });
+  }
 
   function handleOpenModal() {
     return setShowModal(true);
