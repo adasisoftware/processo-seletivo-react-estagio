@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { AppointmentData } from '../../types/appointment-data';
 import EditAppointmentForm from './edit-appointment-form';
+import { BASE_URL } from '../../api';
+import { AppointmentDataRow } from '../../constants/appointment-table-columns';
 
 type AppointmentsTableActionsCellProps = {
-  rowData: AppointmentData;
+  rowData: AppointmentDataRow;
 };
 
 export default function AppointmentsTableActionsCell({
@@ -16,7 +17,12 @@ export default function AppointmentsTableActionsCell({
     handleOpenModal();
   }
 
-  function handleDeleteBtnClick() {}
+  async function handleDeleteBtnClick() {
+    await fetch(`${BASE_URL}/appointments/${rowData.id}`, {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json' },
+    });
+  }
 
   function handleOpenModal() {
     return setShowModal(true);
