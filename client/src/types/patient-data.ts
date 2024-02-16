@@ -1,7 +1,7 @@
 export type PatientData = {
-  patientUId: string;
+  id: string;
   cpf: string;
   fullName: string;
-  birthday: string;
-  sex: 'M' | 'F';
+  birthday: Date;
+  sex: 'MALE' | 'FEMALE';
 };

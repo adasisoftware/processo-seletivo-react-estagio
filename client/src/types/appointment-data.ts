@@ -1,8 +1,7 @@
 export type AppointmentData = {
-  appointmentUId: string;
-  patientCPF: string;
-  patientFullName: string;
+  id: string;
+  patientId: string;
   type: string;
-  bookingDate: string;
+  bookingDate: Date;
   bookingTime: string;
 };
