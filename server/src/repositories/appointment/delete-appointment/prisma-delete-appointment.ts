@@ -23,7 +23,7 @@ export class PrismaDeleteAppointmentRepository
       throw new Error('Appointment was not found.');
     }
 
-    await prismaClient.patient.delete({
+    await prismaClient.appointment.delete({
       where: {
         id,
       },

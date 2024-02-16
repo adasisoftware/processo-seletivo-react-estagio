@@ -14,6 +14,12 @@ export class PrismaDeletePatientRepository implements IDeletePatientRepository {
       throw new Error('Patient was not found.');
     }
 
+    await prismaClient.appointment.deleteMany({
+      where: {
+        patientId: id,
+      },
+    });
+
     await prismaClient.patient.delete({
       where: {
         id,
